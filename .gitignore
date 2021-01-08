@@ -1,1 +1,5 @@
 *.sw?
+GeoLite-ASN-Blocks-IPv4.csv
+GeoLite-ASN-Blocks-IPv6.csv
+go
+out.mmdb

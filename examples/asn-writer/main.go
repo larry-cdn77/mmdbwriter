@@ -17,8 +17,11 @@ import (
 func main() {
 	writer, err := mmdbwriter.New(
 		mmdbwriter.Options{
-			DatabaseType: "My-ASN-DB",
-			RecordSize:   24,
+			DatabaseType: "GeoLite2-ASN",
+			RecordSize: 24,
+			DisableIPv4Aliasing: true,
+			IncludeReservedNetworks: true,
+			Languages: []string{"en"},
 		},
 	)
 	if err != nil {

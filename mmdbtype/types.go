@@ -287,7 +287,7 @@ func (t Pointer) WriteTo(w writer) (int64, error) {
 	size := t.size()
 	switch size {
 	case 0:
-		err := w.WriteByte(0b00100000 | byte(0b111&(t>>8)))
+		err := w.WriteByte(0x20 | byte(7&(t>>8)))
 		if err != nil {
 			return 0, errors.Wrap(err, "error writing pointer")
 		}
@@ -297,7 +297,7 @@ func (t Pointer) WriteTo(w writer) (int64, error) {
 		}
 	case 1:
 		v := t - pointerMaxSize0
-		err := w.WriteByte(0b00101000 | byte(0b111&(v>>16)))
+		err := w.WriteByte(0x28 | byte(7&(v>>16)))
 		if err != nil {
 			return 0, errors.Wrap(err, "error writing pointer")
 		}
@@ -311,7 +311,7 @@ func (t Pointer) WriteTo(w writer) (int64, error) {
 		}
 	case 2:
 		v := t - pointerMaxSize1
-		err := w.WriteByte(0b00110000 | byte(0b111&(v>>24)))
+		err := w.WriteByte(0x30 | byte(7&(v>>24)))
 		if err != nil {
 			return 0, errors.Wrap(err, "error writing pointer")
 		}
@@ -328,7 +328,7 @@ func (t Pointer) WriteTo(w writer) (int64, error) {
 			return 3, errors.Wrap(err, "error writing pointer")
 		}
 	case 3:
-		err := w.WriteByte(0b00111000)
+		err := w.WriteByte(0x38)
 		if err != nil {
 			return 0, errors.Wrap(err, "error writing pointer")
 		}

@@ -22,6 +22,7 @@ func main() {
 			DisableIPv4Aliasing: true,
 			IncludeReservedNetworks: true,
 			Languages: []string{"en"},
+			Description: map[string]string{"en": "BIRD ASN database"},
 		},
 	)
 	if err != nil {

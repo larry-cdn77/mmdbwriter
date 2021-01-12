@@ -184,7 +184,7 @@ func (t Int32) WriteTo(w writer) (int64, error) {
 	size := t.size()
 	// We ignore leading zeros
 	for i := size; i > 0; i-- {
-		err = w.WriteByte(byte((int32(t) >> (8 * (i - 1))) & 0xFF))
+		err = w.WriteByte(byte((int32(t) >> uint(8 * (i - 1))) & 0xFF))
 		if err != nil {
 			return numBytes + int64(size-i), errors.Wrap(err, "error writing int32")
 		}
@@ -442,7 +442,7 @@ func (t Uint16) WriteTo(w writer) (int64, error) {
 	size := t.size()
 	// We ignore leading zeros
 	for i := size; i > 0; i-- {
-		err = w.WriteByte(byte(t >> (8 * (i - 1)) & 0xFF))
+		err = w.WriteByte(byte(t >> uint(8 * (i - 1)) & 0xFF))
 		if err != nil {
 			return numBytes + int64(size-i), errors.Wrap(err, "error writing uint16")
 		}
@@ -474,7 +474,7 @@ func (t Uint32) WriteTo(w writer) (int64, error) {
 	size := t.size()
 	// We ignore leading zeros
 	for i := size; i > 0; i-- {
-		err = w.WriteByte(byte(t >> (8 * (i - 1)) & 0xFF))
+		err = w.WriteByte(byte(t >> uint(8 * (i - 1)) & 0xFF))
 		if err != nil {
 			return numBytes + int64(size-i), errors.Wrap(err, "error writing uint32")
 		}
@@ -507,7 +507,7 @@ func (t Uint64) WriteTo(w writer) (int64, error) {
 
 	// We ignore leading zeros
 	for i := size; i > 0; i-- {
-		err = w.WriteByte(byte(t >> (8 * (i - 1)) & 0xFF))
+		err = w.WriteByte(byte(t >> uint(8 * (i - 1)) & 0xFF))
 		if err != nil {
 			return numBytes + int64(size-i), errors.Wrap(err, "error writing uint64")
 		}
@@ -623,7 +623,7 @@ func writeCtrlByte(w writer, t DataType) (int64, error) {
 	}
 
 	for i := leftOverSize - 1; i >= 0; i-- {
-		v := byte((leftOver >> (8 * i)) & 0xFF)
+		v := byte((leftOver >> uint(8 * i)) & 0xFF)
 		err = w.WriteByte(v)
 		if err != nil {
 			return numBytes, errors.Wrapf(

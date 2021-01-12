@@ -506,7 +506,7 @@ func (t *Tree) copyNode(buf []byte, n *node, dataWriter *dataWriter) error {
 		return err
 	}
 
-	maxRecord := 1 << t.recordSize
+	maxRecord := 1 << uint(t.recordSize)
 	if left >= maxRecord || right >= maxRecord {
 		return errors.Errorf(
 			"exceeded record capacity by attempting to write (%d, %d) to node with %d bit record size; "+

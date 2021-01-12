@@ -182,5 +182,5 @@ func (n *node) finalize(currentNum int) (*record, int) {
 }
 
 func bitAt(ip net.IP, depth int) byte {
-	return (ip[depth/8] >> (7 - (depth % 8))) & 1
+	return (ip[depth/8] >> uint(7 - (depth % 8))) & 1
 }
